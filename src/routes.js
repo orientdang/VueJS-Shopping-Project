@@ -5,7 +5,7 @@ import Porfolio from "./components/Porfolio.vue";
 import PorfolioStock from "./components/PorfolioStock.vue";
 import Stocks from "./components/Stocks.vue";
 import StocksItem from "./components/StocksItem.vue";
-
+import Product from "./components/Product";
 export const routes = [
     {
         path: "/",
@@ -17,6 +17,24 @@ export const routes = [
         }
     },
 
+    {
+        path: "/product",
+        name: "product",
+        components: {
+            default: Product,
+            "the-heading": TheHeading,
+            "the-footer": TheFooter
+        }
+    },
+    {
+        path: "/product/:gender",
+        name: "product-item",
+        components: {
+            default: Product,
+            "the-heading": TheHeading,
+            "the-footer": TheFooter
+        }
+    },
     {
         path: "/porfolio",
         name: "porfolio",
@@ -31,8 +49,8 @@ export const routes = [
                 name: "porfolio-stock",
                 components: {
                     default: PorfolioStock,
-                    'the-heading': TheHeading,
-                    'the-footer': TheFooter,
+                    "the-heading": TheHeading,
+                    "the-footer": TheFooter
                 }
             }
         ]

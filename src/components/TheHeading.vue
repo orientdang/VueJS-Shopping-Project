@@ -30,7 +30,7 @@
                         </b-dropdown>
                     </router-link>
                     <router-link
-                        :to="{name: 'stocks'}"
+                        :to="{name: 'product'}"
                         tag="b-nav-item"
                         active-class="active"
                         exact
@@ -38,10 +38,11 @@
                         <b-dropdown
                             variant="outline-light"
                             split
-                            text="Stocks"
+                            text="Products"
                             class="m-2"
                         >
-                            <b-dropdown-item :to="{name: 'stocks-item'}">Stocks item</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'product-item',params: {gender: 'male'}}">Male</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'product-item',params: {gender: 'female'}}">Female</b-dropdown-item>
                         </b-dropdown>
                     </router-link>
                 </b-navbar-nav>

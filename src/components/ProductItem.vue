@@ -1,10 +1,10 @@
 <template>
     <div>
         <div>
-            <b-card-group v-if="stock">
+            <b-card-group>
                 <b-card
                     border-variant="info"
-                    :header="stock.name"
+                    :header="$route.params.gender"
                     header-bg-variant="primary"
                     header-text-variant="white"
                     header-size-variant="lg"
@@ -15,14 +15,11 @@
                             class="form-control"
                             type="number"
                             placeholder="Quantity"
-                            v-model="quantity"
                         >
                         <b-button
                             class="form-control mt-3"
                             size="sm"
                             variant="info"
-                            @click="handleBuy"
-                            :disabled="quantity < 0 || !Number.isInteger(+quantity)"
                         >BUY</b-button>
                     </b-card-text>
                 </b-card>
@@ -33,27 +30,9 @@
 </template>
 
 <script>
+
 export default {
-    props: {
-        stock: [Object]
-    },
-    data() {
-        return {
-            quantity: 0
-        };
-    },
-    methods: {
-        handleBuy() {
-            const orderStock = {
-                stockId: this.stock.id,
-                stockName: this.stock.name,
-                stockPrice: this.stock.price,
-                stockQuantity: this.quantity
-            };
-            // eslint-disable-next-line
-            console.log(orderStock);
-        }
-    }
+    
 };
 </script>
 
