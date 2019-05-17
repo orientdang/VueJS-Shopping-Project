@@ -2,11 +2,11 @@
     <b-container>
         <div class="mt-3 row">
             <div
-                v-for="(item,index) in productsByGender"
+                v-for="(product,index) in productsByGender"
                 :key="index"
                 class="col-3 mt-3"
             >
-                <product-item />
+                <product-item :productItem="product"/>
             </div>
         </div>
     </b-container>
@@ -20,8 +20,6 @@ import productsServices from "../services/products.service";
 export default {
     created() {
         this.getProducts();
-        console.log(this.productItems);
-        console.log(this.gender);
     },
     watch: {
         // eslint-disable-next-line
