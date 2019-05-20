@@ -60,7 +60,7 @@ export default {
                 orderQuantity: this.quantity,
                 orderPrice: this.productItem.price
             };
-            this.$store.dispatch('INIT_PRODUCTS',orderProduct);
+            this.$store.dispatch("FIND_OR_CREATED", orderProduct);
         }
     }
 };

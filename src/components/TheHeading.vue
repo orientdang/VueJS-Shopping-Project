@@ -14,21 +14,7 @@
                 is-nav
             >
                 <b-navbar-nav>
-                    <router-link
-                        :to="{name: 'porfolio'}"
-                        tag="b-nav-item"
-                        active-class="active"
-                        exact
-                    >
-                        <b-dropdown
-                            variant="outline-light"
-                            split
-                            text="Porfolio"
-                            class="m-2"
-                        >
-                            <b-dropdown-item :to="{name: 'porfolio-stock'}">Porfolio Stock</b-dropdown-item>
-                        </b-dropdown>
-                    </router-link>
+
                     <router-link
                         :to="{name: 'product'}"
                         tag="b-nav-item"
@@ -50,15 +36,19 @@
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item>
-                        <h6>Your Cart
+                        <router-link
+                            tag="h6"
+                            to="/cart"
+                        >
+                            Your Cart
                             <b-badge variant="warning">{{cart}}</b-badge>
-                        </h6>
+                        </router-link>
                     </b-nav-item>
 
                     <b-nav-item-dropdown right>
                         <!-- Using 'button-content' slot -->
                         <template slot="button-content"><em>User</em></template>
-                        <b-dropdown-item href="#">Profile</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'cart'}">Profile</b-dropdown-item>
                         <b-dropdown-item href="#">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
@@ -69,14 +59,14 @@
 
 <script>
 export default {
-    data(){
+    data() {
         return {
             cartLength: 0
-        }
+        };
     },
     computed: {
-        cart(){
-            return this.$store.getters.GET_PRODUCT_LENGTH
+        cart() {
+            return this.$store.getters.GET_CART_LENGTH;
         }
     }
 };
