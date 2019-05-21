@@ -8,5 +8,8 @@ export default new Vuex.Store({
     modules: {
         productsModule
     },
-    plugins: [createPersistedState()]
+    plugins: [createPersistedState({
+        key: 'cart',
+        paths: ['productsModule.cart'],
+    })]
 });

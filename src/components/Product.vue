@@ -6,7 +6,7 @@
                 :key="index"
                 class="col-3 mt-3"
             >
-                <product-item :productItem="product"/>
+                <product-item :key="$store.getters.RENDER_KEY" :productItem="product" />
             </div>
         </div>
     </b-container>
@@ -18,9 +18,9 @@ import ProductItem from "./ProductItem";
 import productsServices from "../services/products.service";
 
 export default {
-    created() {
-        this.getProducts();
-    },
+    // created() {
+    //     this.$store.dispatch("INIT_PRODUCTS", this.getProducts());
+    // },
     watch: {
         // eslint-disable-next-line
         $route(to, from) {
@@ -30,9 +30,9 @@ export default {
     computed: {
         productsByGender() {
             if (this.hasParams()) {
-                return this.getProductsByGender(this.gender);
+                return this.$store.getters.GET_PRODUCTS_BY_GENDER(this.gender);
             } else {
-                return this.productItems;
+                return this.$store.getters.GET_PRODUCTS;
             }
         }
     },
@@ -44,12 +44,12 @@ export default {
             return productsServices.getByGender(gender);
         },
         getProducts() {
-            this.productItems = productsServices.getAll();
+            return productsServices.getAll();
         }
     },
     data() {
         return {
-            productItems: [],
+            // productItems: [],
             gender: this.$route.params.gender
         };
     },

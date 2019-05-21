@@ -11,6 +11,10 @@
                     align="center"
                 >
                     <b-card-text>
+                        <div class="text-left mb-2">
+                            <b-card-text><span class="font-weight-bold">Quantity</span>: {{remainQuantity}}</b-card-text>
+                            <b-card-text><span class="font-weight-bold">Price</span>: {{product.price}}</b-card-text>
+                        </div>
                         <input
                             class="form-control"
                             type="number"
@@ -39,16 +43,22 @@ export default {
     },
     data() {
         return {
-            quantity: null
+            quantity: null,
+            product: {...this.productItem}
         };
     },
     computed: {
         notValidNumber() {
             return this.quantity <= 0 ||
                 !Number.isInteger(+this.quantity) ||
-                this.quantity === null
+                this.quantity === null ||
+                this.product.quantity - this.quantity < 0
                 ? true
                 : false;
+        },
+        remainQuantity() {
+            const remain = this.product.quantity - this.quantity;
+            return remain < 0 ? this.product.quantity : remain;
         }
     },
     methods: {
@@ -61,6 +71,11 @@ export default {
                 orderPrice: this.productItem.price
             };
             this.$store.dispatch("FIND_OR_CREATED", orderProduct);
+            this.product.quantity = this.remainQuantity;
+            this.reset();
+        },
+        reset() {
+            this.quantity = "";
         }
     }
 };

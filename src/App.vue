@@ -8,15 +8,21 @@
             @enter="enter"
             @afterEnter="afterEnter"
         >
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </transition>
         <router-view name="the-footer"></router-view>
     </div>
 </template>
 
 <script>
+import productsServices from "./services/products.service";
 export default {
     name: "App",
+    created() {
+        this.$store.dispatch("INIT_PRODUCTS", productsServices.getAll());
+    },
     data() {
         return {
             prevHeight: 0

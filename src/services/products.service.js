@@ -7,6 +7,6 @@ const getByGender = gender => {
     return _products;
 };
 const getAll = () => {
-    return productsData;
+    return [...productsData];
 };
 export default { getByGender, getAll };

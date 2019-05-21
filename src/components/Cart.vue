@@ -7,35 +7,14 @@
                 hover
                 :items="cartItem"
             >
-                <template
-                    slot="actions"
-                    slot-scope="data"
-                >
-                    <b-button
-                        variant="info"
-                        @click="handleDeleteItem(data.item)"
-                    >
-                        Delete
-                    </b-button>
-                </template>
-                <template
-                    slot="actions2"
-                    slot-scope="data"
-                >
-                    <b-button
-                        variant="danger"
-                        @click="handleModal(data.item)"
-                    >
-                        Change Quantity
-                    </b-button>
-                </template>
 
                 <template slot="table-caption">
                     <div class="text-right">
                         <b-button
                             class="mr-3"
                             variant="outline-success"
-                        >Order</b-button>
+                            v-b-modal.modal-save
+                        >Save</b-button>
                         <b-button
                             variant="outline-danger"
                             @click="handleClearCart"
@@ -53,16 +32,13 @@
         </div>
         <!-- The modal -->
         <b-modal
-            id="modal-prevent-closing"
-            title="Update quantity"
-            @ok="handleSubmitModal"
+            id="modal-save"
+            title="Saving...."
+            @ok="onSave"
         >
             <form>
                 <b-form-group invalid-feedback="Name is required">
-                    <b-form-input
-                        v-model="newQuantity"
-                        required
-                    ></b-form-input>
+                    <p>Your orders have been save, would you like to continue shopping?</p>
                 </b-form-group>
             </form>
         </b-modal>
@@ -86,14 +62,15 @@ export default {
                 "orderName",
                 "orderGender",
                 "orderQuantity",
-                "orderPrice",
-                "actions",
-                "actions2"
-            ],
-            cartItem: this.$store.getters.GET_CART
+                "orderPrice"
+            ]
+            // cartItem: [...this.$store.getters.GET_CART]
         };
     },
     computed: {
+        cartItem() {
+            return this.$store.getters.GET_CART;
+        },
         sum() {
             const sum = this.cartItem.reduce((sum, item) => {
                 return sum + item.orderPrice * item.orderQuantity;
@@ -102,27 +79,9 @@ export default {
         }
     },
     methods: {
-        handleSubmitModal() {
-            console.log(this.newQuantity);
-            if (this.newQuantity == 0) {
-                this.$store.dispatch("FIND_AND_DELETE", this.orderProduct);
-            } else {
-                this.orderProduct.orderQuantity = this.newQuantity;
-                this.$store.dispatch("FIND_OR_CREATED", this.orderProduct);
-            }
-            this.newQuantity = 0;
-        },
-        handleModal(item) {
-            this.$bvModal.show("modal-prevent-closing");
-            this.orderProduct = { ...item };
-            this.newQuantity = item.orderQuantity;
-            console.log(this.orderProduct);
-        },
-        handleDeleteItem(cartItem) {
-            this.$store.dispatch("FIND_AND_DELETE", cartItem);
-        },
-        rowSelected(items) {
-            this.selected = items;
+        onSave() {
+            this.$store.dispatch("SAVE", this.cartItem);
+            this.$store.dispatch("CLEAR_CART");
         },
         handleClearCart() {
             this.$store.dispatch("CLEAR_CART");
