@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h1>
-            The footer works
-        </h1>
+        <h4 class="mt-5 text-center text-info font-italic">
+            Nguyen Hai Dang - orientdang@orient.com
+        </h4>
     </div>
 </template>
 

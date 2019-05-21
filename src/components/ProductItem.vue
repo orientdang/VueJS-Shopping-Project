@@ -58,7 +58,7 @@ export default {
         },
         remainQuantity() {
             const remain = this.product.quantity - this.quantity;
-            return remain < 0 ? this.product.quantity : remain;
+            return this.quantity < 0 ? this.product.quantity : remain;
         }
     },
     methods: {
